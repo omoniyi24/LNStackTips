@@ -1,0 +1,16 @@
+{
+  "answers": [
+    {
+      "id": 1,
+      "questionId": 3,
+      "body": "The LNStackTips The LNStackTips The LNStackTips",
+      "rewardHash": "eqw",
+      "isClaimed": false,
+      "readyToClaim": false,
+      "isPaid": false,
+      "voteCount": 0,
+      "timePaid": "1970-01-01T00:00:00.000Z",
+      "timeCreated": "2022-06-16T19:01:09.748Z"
+    }
+  ]
+}
