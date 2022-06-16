@@ -146,7 +146,11 @@ Desktop.ini
 ######################
 .eslintcache
 
-../idea/
-../../idea/
+../.idea/
+../../.idea/
 
 ./data
+.env
+package-lock.json
+
+
