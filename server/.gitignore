@@ -152,5 +152,6 @@ Desktop.ini
 ./data
 .env
 package-lock.json
+../db.json
 
 
