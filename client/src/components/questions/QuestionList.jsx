@@ -1,32 +1,23 @@
-import {useEffect, useState} from "react";
+import {useEffect, useContext} from "react";
 import axios from "axios";
+import questionItem from "./QuestionItem";
+import QuestionItem from "./QuestionItem";
+import QuestionContext from "../../context/question/QuestionContext";
 
 
 function QuestionList(){
-    const [questions, setQuestions] = useState([])
-    const [loading, setLoading] = useState(true)
+    const {questions, loading, fetchQuestions} = useContext(QuestionContext)
 
     useEffect(() => {
         fetchQuestions()
     }, [])
 
-    const fetchQuestions = async () => {
-        axios.get('http://localhost:3001/api/v1/questions', {
-        }).then(response => {
-            console.log("[+]<<<<", response.data);
-            setQuestions(response.data.data)
-            setLoading(false)
-        }).catch((err) => {
-            console.log(err)
-        });
-    }
-
-
     if(!loading){
         return (
             <div className='list inline-table'>
             {questions.map((question, index) => (
-                <h3 key={index}>{question.body}</h3>
+                // <h3 key={index}>{question.body}</h3>
+                <QuestionItem key={question.id} question={question} />
             ))}
         </div>
         )
