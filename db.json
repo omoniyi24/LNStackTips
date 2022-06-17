@@ -1,16 +1,48 @@
 {
-  "answers": [
+  "questions": [
     {
       "id": 1,
-      "questionId": 1,
+      "title": "The LNStackTips",
       "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "dfghgfdw",
-      "isClaimed": false,
-      "readyToClaim": false,
-      "isPaid": false,
-      "voteCount": 0,
-      "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-17T13:28:09.065Z"
+      "tags": "eqw",
+      "isRewardable": true,
+      "rewardInSatoshi": 2,
+      "voteThreshold": 2,
+      "timeCreated": "2022-06-17T11:00:28.330Z",
+      "paymentHash": ""
+    },
+    {
+      "id": 2,
+      "title": "The LNStackTips",
+      "body": "The LNStackTips The LNStackTips The LNStackTips",
+      "tags": "eqw",
+      "isRewardable": true,
+      "rewardInSatoshi": 2,
+      "voteThreshold": 2,
+      "timeCreated": "2022-06-17T11:00:29.307Z",
+      "paymentHash": ""
+    },
+    {
+      "id": 3,
+      "title": "The LNStackTips",
+      "body": "The LNStackTips The LNStackTips The LNStackTips",
+      "tags": "eqw",
+      "isRewardable": true,
+      "rewardInSatoshi": 2,
+      "voteThreshold": 2,
+      "timeCreated": "2022-06-17T11:00:29.942Z",
+      "paymentHash": ""
+    },
+    {
+      "id": 4,
+      "title": "The LNStackTips",
+      "body": "The jjkhslkj khlkjhl kjhslkjhags k,fhalskajhsakjhf laskjhf alkjfhlasjdhflasf,jhls kjhflakjdfhalsdkjfhaslfkjahs",
+      "tags": "eqw",
+      "isRewardable": true,
+      "rewardInSatoshi": 2,
+      "voteThreshold": 2,
+      "timeCreated": "2022-06-17T11:36:09.160Z",
+      "paymentHash": ""
     }
   ]
 }
