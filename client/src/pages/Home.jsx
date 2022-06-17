@@ -1,8 +1,10 @@
+import QuestionList from "../components/questions/QuestionList";
+
 function Home(){
     return (
-        <div>
-            home
-        </div>
+        <>
+            <QuestionList />
+        </>
     )
 }
 
