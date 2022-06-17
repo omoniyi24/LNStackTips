@@ -65,12 +65,26 @@ export class AnswerService extends EventEmitter {
             throw new Error('Answer not found');
         }
 
-        answer.rewardHash = rewardHash
+        answer.rewardHash = rewardHash 
         answer.body = body
         answer.isClaimed = isClaimed
         answer.readyToClaim = readyToClaim
         answer.isPaid = isPaid
         answer.voteCount = voteCount
+        this.persist();
+        this.emit(AnswerEvents.updated, answer);
+        return this.getAnswerById(answerId)
+    }
+
+    updateVotecount(answerId: number, voteCount: number) {
+        const answer = this._data.answers.find(p => p.id === answerId);
+        console.log(answer);
+        
+        if (!answer) {
+            throw new Error('Answer not found');
+        }
+
+        answer.voteCount = answer.voteCount + voteCount;
         this.persist();
         this.emit(AnswerEvents.updated, answer);
         return this.getAnswerById(answerId)
@@ -85,6 +99,15 @@ export class AnswerService extends EventEmitter {
     async persist() {
         await fs.writeFile(DB_FILE, JSON.stringify(this._data, null, 2));
     }
+
+//     var currentSearchResult = 'example'
+
+//     fs.readFile('results.json', function (err, data) {
+//     var json = JSON.parse(data)
+//     json.push('search result: ' + currentSearchResult)
+
+//     fs.writeFile("results.json", JSON.stringify(json))
+// })
 
     async restore() {
         if (!existsSync(DB_FILE)) return;
