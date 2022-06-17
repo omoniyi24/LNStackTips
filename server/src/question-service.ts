@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 import {existsSync, promises as fs} from "fs";
 
-const DB_FILE = '../db.json';
+const DB_FILE = '../questiondb.json';
 
 export interface Question {
     id: number;

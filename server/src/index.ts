@@ -92,12 +92,35 @@ app.post(apiBase + '/answer', async (req, res, next) => {
         if(!question){
             res.status(400).json({ error: `Invalid Question  ID ${questionId}`});
         }
-        answerService.createAnswer(numberQuestionId, answerBody, claimHash)
         res.sendStatus(201);
+        answerService.createAnswer(numberQuestionId, answerBody, claimHash)
     } catch(err) {
         next(err);
     }
 });
+
+app.put(apiBase + '/addvote/:id', async (req, res, next) => {
+    try {
+        console.log("see me");
+        const  votecount = req.body.voteCount;
+        console.log(votecount);
+        
+        const answerId = parseInt(req.params.id);
+    if (answerId) {
+
+        const result = answerService.updateVotecount(answerId, votecount);
+        console.log(result);
+        
+        res.json({ data: result });
+        res.sendStatus(201)
+    } else {
+        res.status(404).json({ error: `No Question found with ID ${req.params.id}`});
+    }
+
+    } catch (error) {
+        
+    }
+})
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
