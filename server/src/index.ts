@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import questionService from "./question-service";
 import answerService from "./answer-service";
 import bodyParser from "body-parser";
+import cors from "cors";
 
 
 dotenv.config();
@@ -11,6 +12,7 @@ const app: Express = express();
 const port = process.env.PORT;
 const apiBase = process.env.API_BASE;
 app.use(bodyParser.json());
+app.use(cors({ origin: '*' }));
 
 
 
