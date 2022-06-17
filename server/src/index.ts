@@ -44,7 +44,7 @@ app.get(apiBase + '/question/:id', (req, res) => {
 app.post(apiBase + '/question', async (req, res, next) => {
     try {
         const {questionTitle, questionBody, tags, isRewardable, rewardInSatoshi, voteThreshold} = req.body;
-        if (!questionTitle || !questionBody || !isRewardable) {
+        if (!questionTitle || !questionBody) {
             res.status(400).json({ error: 'Any of Fields questionTitle, questionBody, isRewardable are required to make a question'});
         }
         const isRewardableBoolean = Boolean(isRewardable);

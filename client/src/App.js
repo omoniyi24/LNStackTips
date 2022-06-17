@@ -10,6 +10,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import {QuestionProvider} from "./context/question/QuestionContext";
 import Question from "./pages/Question";
+import AskQuestion from "./components/questions/AskQuestion"
 import Profile from "./pages/Profile";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                             <Route path='/signUp' element={<SignUp />} />
                             <Route path='/profile/:profileId' element={<Profile />} />
                             <Route path='/question/:questionId' element={<Question />} />
+                            <Route path='/askquestion' element={<AskQuestion />} />
                             <Route path='/*' element={<NotFound />} />
                         </Routes>
                     </main>
