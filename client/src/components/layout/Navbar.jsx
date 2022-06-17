@@ -14,8 +14,11 @@ function Navbar({title}) {
                 <div className='flex-1 px-2 mx-2'>
                     <div className='flex justify-end'>
                         <Link to='/' className='btn btn-ghost btn-sm rounded-btn'>Home</Link>
+                        <Link to='/dashboard' className='btn btn-ghost btn-sm rounded-btn'>Dashboard</Link>
                         <Link to='/about' className='btn btn-ghost btn-sm rounded-btn'>About</Link>
                         <Link to='/help' className='btn btn-ghost btn-sm rounded-btn'>Help</Link>
+                        <Link to='/signIn' className='btn btn-ghost btn-sm rounded-btn'>signIn</Link>
+                        {/*<Link to='/signUp' className='btn btn-ghost btn-sm rounded-btn'>signUp</Link>*/}
 
                     </div>
                 </div>
