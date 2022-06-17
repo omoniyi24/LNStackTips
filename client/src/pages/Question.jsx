@@ -1,23 +1,51 @@
 import {useEffect, useState} from "react";
-import QuestionList from "../components/questions/QuestionList";
 import axios from "axios";
-import QuestionContext from "../context/question/QuestionContext";
-import {useContext} from "react";
 import  {useParams} from "react-router-dom";
-import QuestionItem from "../components/questions/QuestionItem";
 import SelectedQuestionItem from "../components/questions/SelectedQuestionItem"
 
 
 function Question(){
     const [text, setText] = useState('')
     const [claimHash, setClaimHash] = useState('')
-    const {question, getQuestion} = useContext(QuestionContext)
+    const {question, setQuestion} = useState({})
+
 
     const params = useParams()
+
+
+    const getQuestion = async (questionId) => {
+        axios.get('http://localhost:3001/api/v1/question/' + questionId, {
+        }).then(response => {
+            let data = response.data.data;
+            console.log("[+]<<<<", data);
+            console.log("[+]<<<<>>>", data.body);
+            // let updatedData = {};
+            // updatedData = {
+            //     body: "fasdf",
+            //     id: 2,
+            //     isRewardable: false,
+            //     paymentHash: "sdfasdf",
+            //     rewardInSatoshi: 2,
+            //     tags: "fsad",
+            //     timeCreated: "fdsf",
+            //     title: "fsadf",
+            //     voteThreshold: 2
+            // };
+            // setQuestion(question => ({
+            //     ...question,
+            //     ...updatedData
+            // }));
+            setQuestion(data)
+            console.log(">>>>> 3", question)
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
 
     useEffect(() => {
         getQuestion(params.questionId)
     }, [])
+
 
     const handleAnswerChange = (e) => setText(e.target.value)
     const handleClaimHashChange = (e) => setClaimHash(e.target.value)
@@ -51,7 +79,7 @@ function Question(){
     return (
         <>
             <div className='list inline-table'>
-                    <SelectedQuestionItem question={question} />
+                    <SelectedQuestionItem question={getQuestion(params.questionId)} />
             </div>
             <div className="p-6">
                 <form onSubmit={handleSubmit}>
