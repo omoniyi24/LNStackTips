@@ -29,7 +29,7 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get(apiBase + '/questions', async (req, res, next) => {
     try {
-        res.json({ data: questionService.getAllQuestions() });
+        res.json({ data: questionService.getAllPaidQuestions() });
     } catch(err) {
         next(err);
     }
@@ -88,6 +88,15 @@ app.get(apiBase + '/answer/:id', (req, res) => {
         res.json({ data: answerById });
     } else {
         res.status(404).json({ error: `No Question found with ID ${req.params.id}`});
+    }
+});
+
+app.get(apiBase + '/answer/questionId/:questionId', (req, res) => {
+    const answerByQuestId = answerService.getAnswerByQuestionId(parseInt(req.params.questionId));
+    if (answerByQuestId) {
+        res.json({ data: answerByQuestId });
+    } else {
+        res.status(404).json({ error: `No Question found with ID ${req.params.questionId}`});
     }
 });
 
