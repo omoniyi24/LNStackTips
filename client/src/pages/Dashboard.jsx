@@ -6,7 +6,7 @@ import QuestionList from "../components/questions/QuestionList";
 import QuestionContext from "../context/question/QuestionContext";
 
 function Dashboard() {
-    const {questions, loading, fetchQuestions} = useContext(QuestionContext)
+    const {questions, showDashboard, setShowDashboard} = useContext(QuestionContext)
 
 
     const name = 'Ilesanmi'
@@ -27,6 +27,9 @@ function Dashboard() {
     // const public_repos = "10"
     // const public_repos = "10"
 
+    useEffect(() => {
+        setShowDashboard(true)
+    }, [])
 
     return (
         <>

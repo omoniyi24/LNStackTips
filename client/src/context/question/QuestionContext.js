@@ -8,8 +8,10 @@ const QUESTION_URL = process.env.QUESTIONS_URL
 
 export const QuestionProvider = ({children}) => {
     const [questions, setQuestions] = useState([])
+    const [question, setQuestion] = useState({})
     const [answers, setAnswers] = useState([])
     const [loading, setLoading] = useState(true)
+    const [showDashboard, setShowDashboard] = useState(false)
 
     const fetchQuestions = async () => {
         axios.get('http://localhost:3001/api/v1/questions', {
@@ -31,12 +33,29 @@ export const QuestionProvider = ({children}) => {
         });
     }
 
+    const fetchQuestion = async (questionId) => {
+        axios.get('http://localhost:3001/api/v1/question/' + questionId, {
+        }).then(response => {
+            let data = response.data.data;
+            console.log("[+]<<<<", data);
+            console.log("[+]<<<<>>>", data.body);
+            setQuestion(data)
+            console.log(">>>>> 3", question)
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
+
     return <QuestionContext.Provider value={{
         questions,
         loading,
         fetchQuestions,
         answers,
-        fetchAnswers
+        fetchAnswers,
+        showDashboard,
+        setShowDashboard,
+        question,
+        fetchQuestion
     }}>
         {children}
     </QuestionContext.Provider>
