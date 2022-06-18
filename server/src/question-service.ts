@@ -1,5 +1,6 @@
 import {EventEmitter} from "events";
 import {existsSync, promises as fs} from "fs";
+import LNNodeService from "./lnnode-service"
 
 const DB_FILE = '../questiondb.json';
 
@@ -9,6 +10,7 @@ export interface Question {
     body: string;
     tags: string;
     isRewardable: boolean;
+    isPaid: boolean;
     rewardInSatoshi: number;
     voteThreshold: number;
     timeCreated: Date;
@@ -38,7 +40,8 @@ export class QuestionService extends EventEmitter {
 
 
     getAllQuestions() {
-        return this._data.questions;
+        return this._data.questions.filter(question => question.isPaid)
+        // return this._data.questions;
     }
 
     getQuestionById(questionId: number) {
@@ -46,16 +49,32 @@ export class QuestionService extends EventEmitter {
     }
 
     async createQuestion(title: string, body: string, tags: string, isRewardable: boolean,
-                         rewardInSatoshi: number, voteThreshold: number, paymentHash: string) {
+                         rewardInSatoshi: number, voteThreshold: number) {
         const maxId = Math.max(0, ...this._data.questions.map(p => p.id));
 
-        const question: Question = {id: maxId + 1, title: title, body: body, tags: tags, isRewardable: isRewardable,
-            rewardInSatoshi: rewardInSatoshi, voteThreshold: voteThreshold, timeCreated: new Date(), paymentHash: paymentHash};
+        let questionId: number = maxId + 1;
+
+        let response = await LNNodeService.generateInvoice(rewardInSatoshi, questionId);
+        const question: Question = {
+            id: questionId,
+            title: title,
+            body: body,
+            tags: tags,
+            isRewardable: isRewardable,
+            isPaid: false,
+            rewardInSatoshi: rewardInSatoshi,
+            voteThreshold: voteThreshold,
+            timeCreated: new Date(),
+            paymentHash: response.hash
+        };
         this._data.questions.push(question);
 
-        await this.persist();
+        this.persist();
         this.emit(QuestionEvents.updated, question);
-        return question;
+        console.log("1mmmmmmmmm ????/", response)
+        return response;
+
+
     }
 
     updateQuestion(questionId: number, title: string, body: string, tags: string, isRewardable: boolean,

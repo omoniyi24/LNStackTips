@@ -4,6 +4,8 @@ import questionService from "./question-service";
 import answerService from "./answer-service";
 import bodyParser from "body-parser";
 import cors from "cors";
+import { node, initNode } from './node';
+import env from "./env";
 
 
 dotenv.config();
@@ -13,6 +15,7 @@ const port = process.env.PORT;
 const apiBase = process.env.API_BASE;
 app.use(bodyParser.json());
 app.use(cors({ origin: '*' }));
+
 
 
 
@@ -55,8 +58,15 @@ app.post(apiBase + '/question', async (req, res, next) => {
                 res.status(400).json({ error: 'Fields rewardInSatoshi and voteThreshold are required if Rewardable is true'});
             }
         }
-        questionService.createQuestion(questionTitle, questionBody, tags, isRewardableBoolean, numberRewardInSatoshi, numberVoteThreshold, '')
-        res.sendStatus(201);
+        let response: any = await questionService.createQuestion(questionTitle, questionBody, tags, isRewardableBoolean, numberRewardInSatoshi, numberVoteThreshold);
+        if( response ){
+            console.log("2mmmmmmmmm ????/", response)
+            res.json({ status: "00", message: "Please pay invoice to proceed",data: {invoice: response.payreq}});
+        } else {
+            res.json({ status: "01", message: "Failed"});
+
+        }
+        // res.sendStatus(201);
     } catch(err) {
         next(err);
     }
@@ -122,6 +132,27 @@ app.put(apiBase + '/addvote/:id', async (req, res, next) => {
     }
 })
 
-app.listen(port, () => {
-    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+
+//NODE ROUTE
+app.get(apiBase + '/node/info', async (req, res, next) => {
+    try {
+        const info = await node.getInfo();
+        const { balance } = await node.channelBalance();
+        res.send({info, balance});
+        next();
+    } catch(err) {
+        next(err);
+    }
+});
+
+
+// Initialize node & server
+console.log('Initializing Lightning node...');
+initNode().then(() => {
+    console.log('Lightning node initialized!');
+    console.log('Starting server...');
+    // wagerService.createWager("Ilesanmi Omoniyi", "omoniyi24@gmail.com", "02a0c076d510f0d22f1aee8c0a01e0eed2f80c5bcf99bcb68c3f2dddcd9b454ba0")
+    app.listen(port, () => {
+        console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    });
 });
