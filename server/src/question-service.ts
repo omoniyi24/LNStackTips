@@ -40,12 +40,25 @@ export class QuestionService extends EventEmitter {
 
 
     getAllQuestions() {
+        return this._data.questions;
+    }
+
+    getAllPaidQuestions() {
         return this._data.questions.filter(question => question.isPaid)
         // return this._data.questions;
     }
 
     getQuestionById(questionId: number) {
-        return this.getAllQuestions().find(question => question.id === questionId);
+        return this.getAllPaidQuestions().find(question => question.id === questionId);
+    }
+
+    getQuestionByHashAndNotPaid(hash: string) {
+        let quest = this.getAllQuestions().find(question => question.paymentHash === hash);
+        // if(quest && !quest.isPaid){
+        //     console.log("-----------", quest)
+        //     return quest;
+        // }
+        return quest
     }
 
     async createQuestion(title: string, body: string, tags: string, isRewardable: boolean,
@@ -53,15 +66,25 @@ export class QuestionService extends EventEmitter {
         const maxId = Math.max(0, ...this._data.questions.map(p => p.id));
 
         let questionId: number = maxId + 1;
+        let isPaid: boolean = false;
 
-        let response = await LNNodeService.generateInvoice(rewardInSatoshi, questionId);
+        let response
+        if(isRewardable){
+            response = await LNNodeService.generateInvoice(rewardInSatoshi, questionId);
+        } else {
+            isPaid = true
+            response = {
+                payreq: "No Payment Request Needed",
+                hash: 'No Invoice Needed',
+            }
+        }
         const question: Question = {
             id: questionId,
             title: title,
             body: body,
             tags: tags,
             isRewardable: isRewardable,
-            isPaid: false,
+            isPaid: isPaid,
             rewardInSatoshi: rewardInSatoshi,
             voteThreshold: voteThreshold,
             timeCreated: new Date(),
@@ -90,6 +113,18 @@ export class QuestionService extends EventEmitter {
         question.isRewardable = isRewardable
         question.rewardInSatoshi = rewardInSatoshi
         question.voteThreshold = voteThreshold
+        this.persist();
+        this.emit(QuestionEvents.updated, question);
+        return this.getQuestionById(questionId)
+    }
+
+    updateQuestionToPaid(questionId: number) {
+        const question = this._data.questions.find(p => p.id === questionId);
+        if (!question) {
+            throw new Error('Question not found');
+        }
+
+        question.isPaid = true
         this.persist();
         this.emit(QuestionEvents.updated, question);
         return this.getQuestionById(questionId)

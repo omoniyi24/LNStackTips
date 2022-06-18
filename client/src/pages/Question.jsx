@@ -7,7 +7,17 @@ import SelectedQuestionItem from "../components/questions/SelectedQuestionItem"
 function Question(){
     const [text, setText] = useState('')
     const [claimHash, setClaimHash] = useState('')
-    const {question, setQuestion} = useState({})
+    const {quest, setQuest} = useState([{
+        body: "fasdf",
+        id: 2,
+        isRewardable: false,
+        paymentHash: "sdfasdf",
+        rewardInSatoshi: 2,
+        tags: "fsad",
+        timeCreated: "fdsf",
+        title: "fsadf",
+        voteThreshold: 2}
+    ])
 
 
     const params = useParams()
@@ -35,8 +45,11 @@ function Question(){
             //     ...question,
             //     ...updatedData
             // }));
-            setQuestion(data)
-            console.log(">>>>> 3", question)
+            let arrQuestions = []
+            arrQuestions.push(data)
+
+            setQuest(arrQuestions)
+            console.log(">>>>> 3", quest[0])
         }).catch((err) => {
             console.log(err)
         });

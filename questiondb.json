@@ -5,12 +5,12 @@
       "title": "My lightning node is unreachable and lightning-rpc': Connection refused",
       "body": "I'm trying to use c-lightning on my raspberry. When start the lightning daemon I get two errors:",
       "tags": "eqw",
-      "isRewardable": true,
-      "isPaid": false,
+      "isRewardable": false,
+      "isPaid": true,
       "rewardInSatoshi": 2,
       "voteThreshold": 2,
-      "timeCreated": "2022-06-18T00:15:40.366Z",
-      "paymentHash": "0GdSQpQnl8H5vLCGuUVAqB1qU5p51sfgfXeOCftR+ME="
+      "timeCreated": "2022-06-18T02:31:10.535Z",
+      "paymentHash": "No Invoice Needed"
     }
   ]
 }

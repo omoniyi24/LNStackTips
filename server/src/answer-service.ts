@@ -46,6 +46,10 @@ export class AnswerService extends EventEmitter {
         return this.getAllAnswers().find(answer => answer.id === answerId);
     }
 
+    getAnswerByQuestionId(questionId: number) {
+        return this.getAllAnswers().filter(answer => answer.questionId === questionId);
+    }
+
     async createAnswer(questionId: number, body: string, rewardHash: string) {
         const maxId = Math.max(0, ...this._data.answers.map(p => p.id));
 
