@@ -2,61 +2,51 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import  {useParams} from "react-router-dom";
 import SelectedQuestionItem from "../components/questions/SelectedQuestionItem"
+import {useContext} from "react";
+import QuestionContext from "../context/question/QuestionContext";
 
 
 function Question(){
     const [text, setText] = useState('')
     const [claimHash, setClaimHash] = useState('')
-    const {quest, setQuest} = useState([{
-        body: "fasdf",
-        id: 2,
-        isRewardable: false,
-        paymentHash: "sdfasdf",
-        rewardInSatoshi: 2,
-        tags: "fsad",
-        timeCreated: "fdsf",
-        title: "fsadf",
-        voteThreshold: 2}
-    ])
+
+    const {question, fetchQuestion} = useContext(QuestionContext)
 
 
     const params = useParams()
 
 
-    const getQuestion = async (questionId) => {
-        axios.get('http://localhost:3001/api/v1/question/' + questionId, {
-        }).then(response => {
-            let data = response.data.data;
-            console.log("[+]<<<<", data);
-            console.log("[+]<<<<>>>", data.body);
-            // let updatedData = {};
-            // updatedData = {
-            //     body: "fasdf",
-            //     id: 2,
-            //     isRewardable: false,
-            //     paymentHash: "sdfasdf",
-            //     rewardInSatoshi: 2,
-            //     tags: "fsad",
-            //     timeCreated: "fdsf",
-            //     title: "fsadf",
-            //     voteThreshold: 2
-            // };
-            // setQuestion(question => ({
-            //     ...question,
-            //     ...updatedData
-            // }));
-            let arrQuestions = []
-            arrQuestions.push(data)
-
-            setQuest(arrQuestions)
-            console.log(">>>>> 3", quest[0])
-        }).catch((err) => {
-            console.log(err)
-        });
-    }
+    // const getQuestion = async (questionId) => {
+    //     axios.get('http://localhost:3001/api/v1/question/' + questionId, {
+    //     }).then(response => {
+    //         let data = response.data.data;
+    //         console.log("[+]<<<<", data);
+    //         console.log("[+]<<<<>>>", data.body);
+    //         // let updatedData = {};
+    //         // updatedData = {
+    //         //     body: "fasdf",
+    //         //     id: 2,
+    //         //     isRewardable: false,
+    //         //     paymentHash: "sdfasdf",
+    //         //     rewardInSatoshi: 2,
+    //         //     tags: "fsad",
+    //         //     timeCreated: "fdsf",
+    //         //     title: "fsadf",
+    //         //     voteThreshold: 2
+    //         // };
+    //         // setQuestion(question => ({
+    //         //     ...question,
+    //         //     ...updatedData
+    //         // }));
+    //         setQuest(data)
+    //         console.log(">>>>> 3", quest)
+    //     }).catch((err) => {
+    //         console.log(err)
+    //     });
+    // }
 
     useEffect(() => {
-        getQuestion(params.questionId)
+        fetchQuestion(params.questionId)
     }, [])
 
 
@@ -92,7 +82,7 @@ function Question(){
     return (
         <>
             <div className='list inline-table'>
-                    <SelectedQuestionItem question={getQuestion(params.questionId)} />
+                    <SelectedQuestionItem question={question} />
             </div>
             <div className="p-6">
                 <form onSubmit={handleSubmit}>

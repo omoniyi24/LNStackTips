@@ -1,8 +1,15 @@
 import {FaGithub} from "react-icons/fa";
-import {Link} from "react-router-dom";
+import {Link, Route} from "react-router-dom";
 import PropTypes from 'prop-types'
+import Dashboard from "../../pages/Dashboard";
+import {useContext} from "react";
+import QuestionContext from "../../context/question/QuestionContext";
 
 function Navbar({title}) {
+
+    const {showDashboard, setShowDashboard} = useContext(QuestionContext)
+
+
     return (
         <nav className='navbar mb-12 shadow-lg bg-neutral text-neutral-content'>
             <div className='container mx-auto'>
@@ -14,7 +21,8 @@ function Navbar({title}) {
                 <div className='flex-1 px-2 mx-2'>
                     <div className='flex justify-end'>
                         <Link to='/' className='btn btn-ghost btn-sm rounded-btn'>Home</Link>
-                        <Link to='/dashboard' className='btn btn-ghost btn-sm rounded-btn'>Dashboard</Link>
+                        {showDashboard ? <Link to='/dashboard' className='btn btn-ghost btn-sm rounded-btn'>Dashboard</Link> : '' }
+                        {/*<Link to='/dashboard' className='btn btn-ghost btn-sm rounded-btn'>Dashboard</Link>*/}
                         <Link to='/about' className='btn btn-ghost btn-sm rounded-btn'>About</Link>
                         <Link to='/help' className='btn btn-ghost btn-sm rounded-btn'>Help</Link>
                         <Link to='/signIn' className='btn btn-ghost btn-sm rounded-btn'>signIn</Link>

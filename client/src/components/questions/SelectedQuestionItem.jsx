@@ -12,9 +12,10 @@ function SelectedQuestionItem({question}) {
         <div className="p-10">
             <div className="max-w-full rounded overflow-hidden shadow-lg">
                     <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2">Mountain</div>
+                        {/*<div className="font-bold text-xl mb-2">{question.title}</div>*/}
                         <p className="text-white-700 text-base">
-                            I'm trying to run lighting-charge (https://github.com/ElementsProject/lightning-charge) on top of one of my 2 lightning (https://github.com/ElementsProject/lightning) instances. I am running 2 nodes using the script here: lightning/contrib/startup_regtest.sh. This file will start a bitcoin instance as well as 2 lightning nodes (/tmp/l1-regtest, /tmp/l2-regtest)
+                            {question.body}
+                            {/*I'm trying to run lighting-charge (https://github.com/ElementsProject/lightning-charge) on top of one of my 2 lightning (https://github.com/ElementsProject/lightning) instances. I am running 2 nodes using the script here: lightning/contrib/startup_regtest.sh. This file will start a bitcoin instance as well as 2 lightning nodes (/tmp/l1-regtest, /tmp/l2-regtest)*/}
                         </p>
                     </div>
                     <div className="px-6 pt-4 pb-2">
