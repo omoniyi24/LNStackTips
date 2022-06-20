@@ -37,10 +37,7 @@ export const QuestionProvider = ({children}) => {
         axios.get('http://localhost:3001/api/v1/question/' + questionId, {
         }).then(response => {
             let data = response.data.data;
-            console.log("[+]<<<<", data);
-            console.log("[+]<<<<>>>", data.body);
             setQuestion(data)
-            console.log(">>>>> 3", question)
         }).catch((err) => {
             console.log(err)
         });

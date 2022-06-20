@@ -6,8 +6,6 @@ import AnswerItem from "./AnswerItem";
 function AnswerList({question}){
     const {answers, loading, fetchAnswers} = useContext(QuestionContext)
 
-    console.log("VVVVV", question)
-    console.log("WWWWW", answers)
     useEffect(() => {
         fetchAnswers(question.id)
     }, [])

@@ -62,11 +62,10 @@ export class QuestionService extends EventEmitter {
     }
 
     async createQuestion(title: string, body: string, tags: string, isRewardable: boolean,
-                         rewardInSatoshi: number, voteThreshold: number) {
+                         rewardInSatoshi: number, voteThreshold: number, isPaid: boolean) {
         const maxId = Math.max(0, ...this._data.questions.map(p => p.id));
 
         let questionId: number = maxId + 1;
-        let isPaid: boolean = false;
 
         let response
         if(isRewardable){

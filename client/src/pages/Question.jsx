@@ -10,10 +10,14 @@ function Question(){
     const [text, setText] = useState('')
     const [claimHash, setClaimHash] = useState('')
 
-    const {question, fetchQuestion} = useContext(QuestionContext)
+    const {question, fetchQuestion, fetchAnswers} = useContext(QuestionContext)
 
 
     const params = useParams()
+
+    const handlePostAnswer = () =>{
+        fetchAnswers(question.id)
+    }
 
 
     // const getQuestion = async (questionId) => {
@@ -47,6 +51,8 @@ function Question(){
 
     useEffect(() => {
         fetchQuestion(params.questionId)
+        fetchAnswers(params.questionId)
+
     }, [])
 
 
@@ -104,7 +110,7 @@ function Question(){
                     </div>
                     <div className="flex justify-end py-4">
                         <button type="submit"
-                                className="bg-blue-700 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-blue-300 hover:bg-blue-500">
+                                className="bg-blue-700 text-white font-bold py-2 px-4 rounded focus:ring focus:ring-blue-300 hover:bg-blue-500" onClick={() => handlePostAnswer()}>
                             Post Your Answer
                         </button>
                     </div>

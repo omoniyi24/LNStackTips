@@ -58,7 +58,7 @@ app.post(apiBase + '/question', async (req, res, next) => {
                 res.status(400).json({ error: 'Fields rewardInSatoshi and voteThreshold are required if Rewardable is true'});
             }
         }
-        let response: any = await questionService.createQuestion(questionTitle, questionBody, tags, isRewardableBoolean, numberRewardInSatoshi, numberVoteThreshold);
+        let response: any = await questionService.createQuestion(questionTitle, questionBody, tags, isRewardableBoolean, numberRewardInSatoshi, numberVoteThreshold, false);
         if( response ){
             console.log("2mmmmmmmmm ????/", response)
             res.json({ status: "00", message: "Please pay invoice to proceed",data: {invoice: response.payreq}});
@@ -112,32 +112,36 @@ app.post(apiBase + '/answer', async (req, res, next) => {
             res.status(400).json({ error: `Invalid Question  ID ${questionId}`});
         }
         res.sendStatus(201);
-        answerService.createAnswer(numberQuestionId, answerBody, claimHash)
+        answerService.createAnswer(numberQuestionId, answerBody, claimHash, false, 0)
     } catch(err) {
         next(err);
     }
 });
 
-app.put(apiBase + '/addvote/:id', async (req, res, next) => {
+app.get(apiBase + '/addvote/:id', async (req, res, next) => {
     try {
-        console.log("see me");
-        const  votecount = req.body.voteCount;
-        console.log(votecount);
-        
         const answerId = parseInt(req.params.id);
     if (answerId) {
 
-        const result = answerService.updateVotecount(answerId, votecount);
-        console.log(result);
-        
-        res.json({ data: result });
+        const answer = answerService.updateVotecount(answerId, 1);
+        console.log(answer);
+        if (answer){
+            let questionById1 = questionService.getQuestionById(answer.questionId);
+            if (questionById1){
+                if(answer.voteCount == questionById1.voteThreshold){
+                    answerService.updateReadyToClaim(answer.id, true)
+                }
+            }
+        }
+        let answerByIdResponse = answerService.getAnswerById(answerId);
+        res.json({ data: answerByIdResponse });
         res.sendStatus(201)
     } else {
         res.status(404).json({ error: `No Question found with ID ${req.params.id}`});
     }
 
     } catch (error) {
-        
+
     }
 })
 
@@ -160,7 +164,23 @@ console.log('Initializing Lightning node...');
 initNode().then(() => {
     console.log('Lightning node initialized!');
     console.log('Starting server...');
-    // wagerService.createWager("Ilesanmi Omoniyi", "omoniyi24@gmail.com", "02a0c076d510f0d22f1aee8c0a01e0eed2f80c5bcf99bcb68c3f2dddcd9b454ba0")
+    questionService.createQuestion("My lightning node is unreachable and lightning-rpc': Connection refused",
+        "I'm trying to use c-lightning on my raspberry. When start the lightning daemon I get two errors:",
+        "lightning-rpc", true, 10, 2, true)
+    answerService.createAnswer(1, "Response to question1 (My lightning node is unreachable and lightning-rpc': Connection refused)",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", true, 1)
+
+    questionService.createQuestion("Run lightning-charge on c-lightning regtest",
+        "I'm trying to run lighting-charge (https://github.com/ElementsProject/lightning-charge) on top of one of my 2 lightning (https://github.com/ElementsProject/lightning) instances. I am running 2 nodes using the script here: lightning/contrib/startup_regtest.sh. This file will start a bitcoin instance as well as 2 lightning nodes (/tmp/l1-regtest, /tmp/l2-regtest)",
+        "regtest", false, 10, 2, true)
+    answerService.createAnswer(1, "Response to question2 (trying to run lighting-charge (https://github.com/ElementsProject/lightning-charge) on",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", true, 1)
+
+    questionService.createQuestion("lightning to lightning non custodial swaps",
+        "Do you know the way to freeze funds in lightning tx to implement atomic swap between two independent lightning networks?",
+        "custodial", true, 10, 2, true)
+    answerService.createAnswer(1, "Response to question3 (Do you know the way to freeze funds in lightning...",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", false, 0)
     app.listen(port, () => {
         console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });

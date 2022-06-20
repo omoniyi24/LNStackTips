@@ -5,8 +5,6 @@ import AnswerList from "../answers/AnswerList";
 
 function SelectedQuestionItem({question}) {
 
-    console.log("====== ", question)
-
     return (
         <>
         <div className="p-10">
