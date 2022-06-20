@@ -50,11 +50,11 @@ export class AnswerService extends EventEmitter {
         return this.getAllAnswers().filter(answer => answer.questionId === questionId);
     }
 
-    async createAnswer(questionId: number, body: string, rewardHash: string) {
+    async createAnswer(questionId: number, body: string, rewardHash: string, readyToClaim: boolean, voteCount: number) {
         const maxId = Math.max(0, ...this._data.answers.map(p => p.id));
 
         const answer: Answer = {id: maxId + 1, questionId: questionId, body: body, rewardHash: rewardHash, isClaimed: false,
-            readyToClaim: false, isPaid: false, voteCount: 0, timePaid: new Date(0), timeCreated: new Date()};
+            readyToClaim: readyToClaim, isPaid: false, voteCount: voteCount, timePaid: new Date(0), timeCreated: new Date()};
         this._data.answers.push(answer);
 
         await this.persist();
@@ -91,7 +91,21 @@ export class AnswerService extends EventEmitter {
         answer.voteCount = answer.voteCount + voteCount;
         this.persist();
         this.emit(AnswerEvents.updated, answer);
-        return this.getAnswerById(answerId)
+        return answer
+    }
+
+    updateReadyToClaim(answerId: number, status: boolean) {
+        const answer = this._data.answers.find(p => p.id === answerId);
+        console.log(answer);
+
+        if (!answer) {
+            throw new Error('Answer not found');
+        }
+
+        answer.readyToClaim = status;
+        this.persist();
+        this.emit(AnswerEvents.updated, answer);
+        return answer
     }
 
     //

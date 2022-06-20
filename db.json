@@ -3,98 +3,50 @@
     {
       "id": 1,
       "questionId": 1,
-      "body": " The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
+      "body": "Response to question1 (My lightning node is unreachable and lightning-rpc': Connection refused)",
+      "rewardHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "isClaimed": false,
-      "readyToClaim": false,
+      "readyToClaim": true,
       "isPaid": false,
-      "voteCount": 0,
+      "voteCount": 2,
       "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:31:13.598Z"
+      "timeCreated": "2022-06-19T16:38:55.669Z"
     },
     {
       "id": 2,
       "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
+      "body": "Response to question2 (trying to run lighting-charge (https://github.com/ElementsProject/lightning-charge) on",
+      "rewardHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "isClaimed": false,
-      "readyToClaim": false,
+      "readyToClaim": true,
       "isPaid": false,
-      "voteCount": 0,
+      "voteCount": 1,
       "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:31:16.891Z"
+      "timeCreated": "2022-06-19T16:38:55.671Z"
     },
     {
       "id": 3,
       "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
+      "body": "Response to question3 (Do you know the way to freeze funds in lightning...",
+      "rewardHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "isClaimed": false,
       "readyToClaim": false,
       "isPaid": false,
-      "voteCount": 0,
+      "voteCount": 1,
       "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:43:19.660Z"
+      "timeCreated": "2022-06-19T16:38:55.671Z"
     },
     {
       "id": 4,
       "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
+      "body": "hjgkjhkgjhg",
+      "rewardHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "isClaimed": false,
-      "readyToClaim": false,
+      "readyToClaim": true,
       "isPaid": false,
-      "voteCount": 0,
+      "voteCount": 2,
       "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:43:20.563Z"
-    },
-    {
-      "id": 5,
-      "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
-      "isClaimed": false,
-      "readyToClaim": false,
-      "isPaid": false,
-      "voteCount": 0,
-      "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:43:21.178Z"
-    },
-    {
-      "id": 6,
-      "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
-      "isClaimed": false,
-      "readyToClaim": false,
-      "isPaid": false,
-      "voteCount": 0,
-      "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:43:21.588Z"
-    },
-    {
-      "id": 7,
-      "questionId": 1,
-      "body": "The LNStackTips The LNStackTips The LNStackTips",
-      "rewardHash": "eqw",
-      "isClaimed": false,
-      "readyToClaim": false,
-      "isPaid": false,
-      "voteCount": 0,
-      "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T02:43:21.993Z"
-    },
-    {
-      "id": 8,
-      "questionId": 1,
-      "body": "fdhbgfhd",
-      "rewardHash": "543654",
-      "isClaimed": false,
-      "readyToClaim": false,
-      "isPaid": false,
-      "voteCount": 0,
-      "timePaid": "1970-01-01T00:00:00.000Z",
-      "timeCreated": "2022-06-18T07:15:08.017Z"
+      "timeCreated": "2022-06-19T16:48:50.039Z"
     }
   ]
 }
